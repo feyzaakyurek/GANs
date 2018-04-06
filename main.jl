@@ -22,7 +22,7 @@ function main(args=ARGS)
         ("--genhidden"; arg_type=Int; default=512; help="sizes of the generator hidden layer")
         ("--dischidden"; arg_type=Int; default=256; help="sizes of the discriminator hidden layer")
         ("--fast"; action=:store_true; help="skip loss printing for faster run")
-        ("--epochs"; arg_type=Int; default=10; help="number of epochs for training")
+        ("--epochs"; arg_type=Int; default=3; help="number of epochs for training")
         ("--iters"; arg_type=Int; default=typemax(Int); help="maximum number of updates for training")
         ("--gcheck"; arg_type=Int; default=0; help="check N random gradients per parameter")
         ("--atype"; default=(gpu()>=0 ? "KnetArray{Float32}" : "Array{Float32}"); help="array and float type to use")
@@ -61,14 +61,14 @@ function generate(w,ninstance,o;genfolder="gen/")
     z = samplez(o[:geninputsize],ninstance)
     gz = generator(w[1:4],z)
     gz = reshape(gz,(28,28,ninstance))
-    # gz = gz .> 0.5
+    gz = gz .> 0.5
     gz = permutedims(gz,(2,1,3))
     # imtype = Array{Gray{N0f8},2}
     for i=1:ninstance
         # save(genfolder*string(i)*".png",convert(imtype,gz[:,:,i]))
         # A = rand(3, 10, 10)
         img = colorview(Gray, convert(Array{Float32,2},gz[:,:,i]))
-        save(string(i)*".png", img)
+        save(genfolder*string(i)*".png", img)
     end
 end
 
