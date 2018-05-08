@@ -1,11 +1,9 @@
-# Generatative Adversarial Nets
+# Generative Adversarial Nets
 
-Contains a replication of Generatative Adversarial Nets (Goodfellow et al. 2014)
+Contains a replication of Generative Adversarial Nets (Goodfellow et al. 2014)
 
 ## Data Folders
 ```
-data/
-  Mnist/  
 
 
 ```
@@ -13,5 +11,5 @@ data/
 ## How To Run
 
 ```SHELL
-julia main.jl --train
+
 ```
